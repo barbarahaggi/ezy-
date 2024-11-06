@@ -1,4 +1,4 @@
-package br.com.fiap.fiapstore.dao;
+package br.com.fiap.fintech.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
