@@ -5,32 +5,30 @@ import br.com.fiap.fintech.util.Criptografia;
 import java.time.LocalDate;
 
 public class Cliente {
-    private int id;
+    private int id_cliente;
     private String nome;
     private String cpf;
+    private String rg;
     private String email;
     private LocalDate nasc;
-    private String endereco;
     private String telefone;
-    private String senha;
 
-    public Cliente(int id, String nome, String cpf, String email, String senha, String endereco, String telefone, LocalDate nasc) {
-        this.id = id;
+    public Cliente(int id_cliente, String nome, String cpf, String rg, String email, String telefone, LocalDate nasc) {
+        this.id_cliente = id_cliente;
         this.nome = nome;
         this.cpf = cpf;
+        this.rg = rg;
         this.email = email;
-        this.senha = senha;
-        this.endereco = endereco;
         this.telefone = telefone;
         this.nasc = nasc;
     }
 
-    public int getId() {
-        return id;
+    public int getId_cliente() {
+        return id_cliente;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId_cliente(int id_cliente) {
+        this.id_cliente = id_cliente;
     }
 
     public String getNome() {
@@ -49,6 +47,14 @@ public class Cliente {
         this.cpf = cpf;
     }
 
+    public String getRg() {
+        return rg;
+    }
+
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -57,32 +63,12 @@ public class Cliente {
         this.email = email;
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        try {
-            this.senha = Criptografia.criptografar(senha);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public LocalDate getNasc() {
         return nasc;
     }
 
     public void setNasc(LocalDate nasc) {
         this.nasc = nasc;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
     }
 
     public String getTelefone() {
