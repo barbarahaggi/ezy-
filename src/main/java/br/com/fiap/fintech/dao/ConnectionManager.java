@@ -19,7 +19,7 @@ public class ConnectionManager {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
 
-            connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","user","password");
+            connection = DriverManager.getConnection("jdbc:oracle:thin:@oracle.fiap.com.br:1521:orcl","RM557909","071204");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
