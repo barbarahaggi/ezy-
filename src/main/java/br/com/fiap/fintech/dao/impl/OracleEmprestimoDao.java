@@ -17,8 +17,9 @@ public class OracleEmprestimoDao implements EmprestimoDao {
     public void cadastrar(Emprestimo emprestimo) throws DBException {
         PreparedStatement stmt = null;
 
-        String sql = "INSERT INTO EMPRESTIMO (ID_EMPRE, VALOR, DATA_INICIO, DATA_VENCIMENTO, TAXA_JUROS, CLIENTE_ID_CLIENTE" +
-                "VALUES (sequencia, ?, ?, ?, ?, ?";
+        String sql = "INSERT INTO EMPRESTIMO (ID_EMPRE, VALOR, DATA_INICIO, DATA_VENCIMENTO, TAXA_JUROS, CLIENTE_ID_CLIENTE) " +
+                "VALUES (sequencia.NEXTVAL, ?, ?, ?, ?, ?)";
+
 
         try {
             conexao = ConnectionManager.getInstance().getConnection();
@@ -49,12 +50,12 @@ public class OracleEmprestimoDao implements EmprestimoDao {
 
         try {
             conexao = ConnectionManager.getInstance().getConnection();
-            String sql = "UPDATE EMPRESTIMO SET" +
-                    "VALOR = ?," +
-                    "DATA_INICIO = ?," +
-                    "DATA_VENCIMENTO = ?," +
-                    "TAXA_JUROS = ?," +
-                    "CLIENTE_ID_CLIENTE = ?" +
+            String sql = "UPDATE EMPRESTIMO SET " +
+                    "VALOR = ?, " +
+                    "DATA_INICIO = ?, " +
+                    "DATA_VENCIMENTO = ?, " +
+                    "TAXA_JUROS = ?, " +
+                    "CLIENTE_ID_CLIENTE = ? " +
                     "WHERE ID_EMPRE = ?";
 
             stmt = conexao.prepareStatement(sql);

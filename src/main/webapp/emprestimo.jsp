@@ -34,7 +34,6 @@
       <thead class="table-secondary">
       <tr>
         <th scope="col">ID</th>
-        <th scope="col">Nome do Empréstimo</th>
         <th scope="col">Valor</th>
         <th scope="col">Data de Empréstimo</th>
         <th scope="col">Taxa de Juros</th>
@@ -44,7 +43,6 @@
       <tbody>
       <tr>
         <td>1</td>
-        <td>Empréstimo Pessoal</td>
         <td>R$ 10.000,00</td>
         <td>05/11/2024</td>
         <td>2,5%</td>
@@ -52,7 +50,6 @@
       </tr>
       <tr>
         <td>2</td>
-        <td>Empréstimo para Negócios</td>
         <td>R$ 25.000,00</td>
         <td>10/10/2024</td>
         <td>3,0%</td>
@@ -65,14 +62,18 @@
   <!-- Formulário para Registrar Novo Empréstimo -->
   <div class="card">
     <div class="card-header">
+
       <h4>Registrar Novo Empréstimo</h4>
     </div>
+    <c:if test="${not empty mensagem}">
+      <div class="alert alert-success">${mensagem}</div>
+    </c:if>
+    <c:if test="${not empty erro}">
+      <div class="alert alert-danger">${erro}</div>
+    </c:if>
+
     <div class="card-body">
       <form action="RegistrarEmprestimoServlet" method="post">
-        <div class="mb-3">
-          <label for="nomeEmprestimo" class="form-label">Nome do Empréstimo</label>
-          <input type="text" class="form-control" id="nomeEmprestimo" name="nomeEmprestimo" required>
-        </div>
         <div class="mb-3">
           <label for="valorEmprestimo" class="form-label">Valor do Empréstimo (R$)</label>
           <input type="number" class="form-control" id="valorEmprestimo" name="valorEmprestimo" required>
@@ -86,8 +87,8 @@
           <input type="number" step="0.1" class="form-control" id="taxaJuros" name="taxaJuros" required>
         </div>
         <div class="mb-3">
-          <label for="prazoMeses" class="form-label">Prazo de Pagamento (meses)</label>
-          <input type="number" class="form-control" id="prazoMeses" name="prazoMeses" required>
+          <label for="dataVencimento" class="form-label">Data do Vencimento do Empréstimo</label>
+          <input type="date" class="form-control" id="dataVencimento" name="dataVencimento" required>
         </div>
         <button type="submit" class="btn btn-primary">Registrar Empréstimo</button>
       </form>
