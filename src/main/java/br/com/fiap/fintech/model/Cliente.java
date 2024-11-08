@@ -9,18 +9,16 @@ public class Cliente {
     private String nome;
     private String cpf;
     private String rg;
-    private String email;
-    private LocalDate nasc;
+    private LocalDate data_nascimento;
     private String telefone;
 
-    public Cliente(int id_cliente, String nome, String cpf, String rg, String email, String telefone, LocalDate nasc) {
+    public Cliente(int id_cliente, String nome, String cpf, String rg, String telefone, LocalDate data_nascimento) {
         this.id_cliente = id_cliente;
         this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
-        this.email = email;
+        this.data_nascimento = data_nascimento;
         this.telefone = telefone;
-        this.nasc = nasc;
     }
 
     public int getId_cliente() {
@@ -55,20 +53,12 @@ public class Cliente {
         this.rg = rg;
     }
 
-    public String getEmail() {
-        return email;
+    public LocalDate getData_nascimento() {
+        return data_nascimento;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public LocalDate getNasc() {
-        return nasc;
-    }
-
-    public void setNasc(LocalDate nasc) {
-        this.nasc = nasc;
+    public void setData_nascimento(LocalDate data_nascimento) {
+        this.data_nascimento = data_nascimento;
     }
 
     public String getTelefone() {

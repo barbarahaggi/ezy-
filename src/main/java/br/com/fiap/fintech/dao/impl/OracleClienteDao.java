@@ -2,158 +2,179 @@ package br.com.fiap.fintech.dao.impl;
 
 import br.com.fiap.fintech.dao.ClienteDao;
 import br.com.fiap.fintech.dao.ConnectionManager;
+import br.com.fiap.fintech.exception.DBException;
 import br.com.fiap.fintech.model.Cliente;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OracleClienteDao implements ClienteDao {
+    private Connection conexao;
 
     @Override
-    public void insert(Cliente cliente) {
-        Connection conexao = null;
-        String sql = "INSERT INTO cliente (ID_CLIENTE, NOME, CPF, RG, EMAIL, TELEFONE, NASC) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public void cadastrar(Cliente cliente) throws DBException {
 
+        PreparedStatement stmt = null;
+        conexao = ConnectionManager.getInstance().getConnection();
+
+        String sql ="INSERT INTO CLIENTE (ID_CLIENTE, NOME, CPF, RG, DATA_NASCIMENTO, TELEFONEL)" +
+                "VALUES (ID_CLIENTE, ?, ?, ?, ?, ?)";
         try {
-            conexao = ConnectionManager.getInstance().getConnection();
-            PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setInt(1, cliente.getId_cliente());
-            stmt.setString(2, cliente.getNome());
-            stmt.setString(3, cliente.getCpf());
-            stmt.setString(4, cliente.getRg());
-            stmt.setString(5, cliente.getEmail());
-            stmt.setString(6, cliente.getTelefone());
-            stmt.setDate(7, Date.valueOf(cliente.getNasc()));
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, cliente.getNome());
+            stmt.setString(2, cliente.getCpf());
+            stmt.setString(3, cliente.getRg());
+            stmt.setDate(4, Date.valueOf(cliente.getData_nascimento()));
+            stmt.setString(5, cliente.getTelefone());
             stmt.executeUpdate();
-            stmt.close();
-        } catch (SQLException e) {
+            System.out.println("Cadastro realizado com sucesso!");
+
+        } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Erro ao inserir o cliente", e);
         } finally {
-            closeConnection(conexao);
+            try {
+                conexao.close();
+                stmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Override
-    public Cliente getById(int id) {
-        Connection conexao = null;
-        Cliente cliente = null;
-        String sql = "SELECT * FROM cliente WHERE ID_CLIENTE = ?";
+    public void atualizar(Cliente cliente) throws DBException {
+        PreparedStatement stmt = null;
 
         try {
             conexao = ConnectionManager.getInstance().getConnection();
-            PreparedStatement stmt = conexao.prepareStatement(sql);
+
+            String sql = "UPDATE CLIENTE SET" +
+                    "NOME = ?," +
+                    "CPF = ?," +
+                    "RG = ?," +
+                    "DATA_NASCIMENTO = ?," +
+                    "TELEFONEL = ?" +
+                    "WHERE ID_CLIENTE = ?";
+
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, cliente.getNome());
+            stmt.setString(2, cliente.getCpf());
+            stmt.setString(3, cliente.getRg());
+            stmt.setDate(4, Date.valueOf(cliente.getData_nascimento()));
+            stmt.setString(5, cliente.getTelefone());
+            stmt.setInt(6, cliente.getId_cliente());
+            stmt.executeUpdate();
+            System.out.println("Dados atualizados!");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                conexao.close();
+                stmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void remover(int id) throws DBException {
+        PreparedStatement stmt = null;
+
+        try {
+            conexao = ConnectionManager.getInstance().getConnection();
+
+            String sql = "DELETE FROM CLIENTE WHERE ID_CLIENTE = ?";
+            stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
+            stmt.executeUpdate();
+            System.out.println("Remoção realizada com sucesso.");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                conexao.close();
+                stmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public Cliente buscar(int id) {
+        Cliente cliente = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conexao = ConnectionManager.getInstance().getConnection();
+            String sql = "SELECT * FROM CLIENTE WHERE ID_CLIENTE = ?";
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
 
             if (rs.next()) {
-                cliente = new Cliente(
-                        rs.getInt("ID_CLIENTE"),
-                        rs.getString("NOME"),
-                        rs.getString("CPF"),
-                        rs.getString("RG"),
-                        rs.getString("EMAIL"),
-                        rs.getString("TELEFONE"),
-                        rs.getDate("NASC").toLocalDate()
-                );
+                int codigoRetornado = rs.getInt("ID_CLIENTE");
+                String nome = rs.getString("NOME");
+                String cpf = rs.getString("CPF");
+                String rg = rs.getString("RG");
+                LocalDate data_nascimento = rs.getDate("DATA_NASCIMENTO").toLocalDate();
+                String telefone = rs.getString("TELEFONEL");
+
+                cliente = new Cliente(codigoRetornado, nome, cpf, rg, telefone, data_nascimento);
             }
-            rs.close();
-            stmt.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Erro ao buscar o cliente por ID", e);
         } finally {
-            closeConnection(conexao);
+            try {
+                stmt.close();
+                rs.close();
+                conexao.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return cliente;
     }
 
     @Override
-    public List<Cliente> getAll() {
-        Connection conexao = null;
+    public List<Cliente> listar() {
         List<Cliente> clientes = new ArrayList<>();
-        String sql = "SELECT * FROM cliente";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             conexao = ConnectionManager.getInstance().getConnection();
-            PreparedStatement stmt = conexao.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
+            String sql = "SELECT * FROM CLIENTE";
+            stmt = conexao.prepareStatement(sql);
+            rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Cliente cliente = new Cliente(
-                        rs.getInt("ID_CLIENTE"),
-                        rs.getString("NOME"),
-                        rs.getString("CPF"),
-                        rs.getString("RG"),
-                        rs.getString("EMAIL"),
-                        rs.getString("TELEFONE"),
-                        rs.getDate("NASC").toLocalDate()
-                );
+                int codigoRetornado = rs.getInt("ID_CLIENTE");
+                String nome = rs.getString("NOME");
+                String cpf = rs.getString("CPF");
+                String rg = rs.getString("RG");
+                LocalDate data_nascimento = rs.getDate("DATA_NASCIMENTO").toLocalDate();
+                String telefone = rs.getString("TELEFONEL");
+
+                Cliente cliente = new Cliente(codigoRetornado, nome, cpf, rg, telefone, data_nascimento);
                 clientes.add(cliente);
             }
-            rs.close();
-            stmt.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Erro ao listar os clientes", e);
         } finally {
-            closeConnection(conexao);
-        }
-        return clientes;
-    }
-
-    @Override
-    public void update(Cliente cliente) {
-        Connection conexao = null;
-        String sql = "UPDATE cliente SET NOME = ?, CPF = ?, RG = ?, EMAIL = ?, TELEFONE = ?, NASC = ? WHERE ID_CLIENTE = ?";
-
-        try {
-            conexao = ConnectionManager.getInstance().getConnection();
-            PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setString(1, cliente.getNome());
-            stmt.setString(2, cliente.getCpf());
-            stmt.setString(3, cliente.getRg());
-            stmt.setString(4, cliente.getEmail());
-            stmt.setString(5, cliente.getTelefone());
-            stmt.setDate(6, Date.valueOf(cliente.getNasc()));
-            stmt.setInt(7, cliente.getId_cliente());
-            stmt.executeUpdate();
-            stmt.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Erro ao atualizar o cliente", e);
-        } finally {
-            closeConnection(conexao);
-        }
-    }
-
-    @Override
-    public void delete(int id) {
-        Connection conexao = null;
-        String sql = "DELETE FROM cliente WHERE ID_CLIENTE = ?";
-
-        try {
-            conexao = ConnectionManager.getInstance().getConnection();
-            PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setInt(1, id);
-            stmt.executeUpdate();
-            stmt.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Erro ao deletar o cliente", e);
-        } finally {
-            closeConnection(conexao);
-        }
-    }
-
-    private void closeConnection(Connection conexao) {
-        if (conexao != null) {
             try {
+                stmt.close();
+                rs.close();
                 conexao.close();
             } catch (SQLException e) {
                 e.printStackTrace();
-                throw new RuntimeException("Erro ao fechar a conexão com o banco de dados", e);
             }
         }
+        return clientes;
     }
 }
