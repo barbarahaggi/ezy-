@@ -1,40 +1,30 @@
 package br.com.fiap.fintech.model;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Emprestimo {
-    private int id_emprestimo;
-    private int id_user;
+    private int id_empre;
     private double valor;
     private LocalDate data_inicio;
     private LocalDate data_vencimento;
     private double taxa_juros;
+    private int cliente_id_cliente;
 
-    public Emprestimo(int id_emprestimo, int id_user, double valor, LocalDate data_inicio, LocalDate data_vencimento, double taxa_juros) {
-        this.id_emprestimo = id_emprestimo;
-        this.id_user = id_user;
+    public Emprestimo(int id_empre, double valor, LocalDate data_inicio, LocalDate data_vencimento, double taxa_juros, int cliente_id_cliente) {
+        this.id_empre = id_empre;
         this.valor = valor;
         this.data_inicio = data_inicio;
         this.data_vencimento = data_vencimento;
         this.taxa_juros = taxa_juros;
+        this.cliente_id_cliente = cliente_id_cliente;
     }
 
-    public int getId_emprestimo() {
-        return id_emprestimo;
+    public int getId_empre() {
+        return id_empre;
     }
 
-    public void setId_emprestimo(int id_emprestimo) {
-        this.id_emprestimo = id_emprestimo;
-    }
-
-    public int getId_user() {
-        return id_user;
-    }
-
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
+    public void setId_empre(int id_empre) {
+        this.id_empre = id_empre;
     }
 
     public double getValor() {
@@ -68,5 +58,12 @@ public class Emprestimo {
     public void setTaxa_juros(double taxa_juros) {
         this.taxa_juros = taxa_juros;
     }
-}
 
+    public int getCliente_id_cliente() {
+        return cliente_id_cliente;
+    }
+
+    public void setCliente_id_cliente(int cliente_id_cliente) {
+        this.cliente_id_cliente = cliente_id_cliente;
+    }
+}

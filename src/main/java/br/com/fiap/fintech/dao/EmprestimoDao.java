@@ -1,12 +1,13 @@
 package br.com.fiap.fintech.dao;
 
+import br.com.fiap.fintech.exception.DBException;
 import br.com.fiap.fintech.model.Emprestimo;
 import java.util.List;
 
 public interface EmprestimoDao {
-    void insert(Emprestimo emprestimo);
-    Emprestimo getById(int id);
-    List<Emprestimo> getAll();
-    void update(Emprestimo emprestimo);
-    void delete(int id);
+    void cadastrar(Emprestimo emprestimo) throws DBException;
+    void atualizar(Emprestimo emprestimo) throws DBException;
+    void remover(int id) throws DBException;
+    Emprestimo buscar(int id);
+    List<Emprestimo> listar();
 }

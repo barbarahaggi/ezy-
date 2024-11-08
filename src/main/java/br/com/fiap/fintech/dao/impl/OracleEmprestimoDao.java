@@ -2,6 +2,7 @@ package br.com.fiap.fintech.dao.impl;
 
 import br.com.fiap.fintech.dao.EmprestimoDao;
 import br.com.fiap.fintech.dao.ConnectionManager;
+import br.com.fiap.fintech.exception.DBException;
 import br.com.fiap.fintech.model.Emprestimo;
 
 import java.sql.*;
@@ -13,151 +14,167 @@ public class OracleEmprestimoDao implements EmprestimoDao {
     private Connection conexao;
 
     @Override
-    public void insert(Emprestimo emprestimo) {
-        conexao = ConnectionManager.getInstance().getConnection();
+    public void cadastrar(Emprestimo emprestimo) throws DBException {
+        PreparedStatement stmt = null;
 
-        String sql = "INSERT INTO emprestimo (ID_EMPRESTIMO, ID_USER, VALOR, DATA_INICIO, DATA_VENCIMENTO, TAXA_JUROS) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO EMPRESTIMO (ID_EMPRE, VALOR, DATA_INICIO, DATA_VENCIMENTO, TAXA_JUROS, CLIENTE_ID_CLIENTE" +
+                "VALUES (sequencia, ?, ?, ?, ?, ?";
 
         try {
             conexao = ConnectionManager.getInstance().getConnection();
-            PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setInt(1, emprestimo.getId_emprestimo());
-            stmt.setInt(2, emprestimo.getId_user());
-            stmt.setDouble(3, emprestimo.getValor());
-            stmt.setDate(4, Date.valueOf(emprestimo.getData_inicio()));
-            stmt.setDate(5, Date.valueOf(emprestimo.getData_vencimento()));
-            stmt.setDouble(6, emprestimo.getTaxa_juros());
+            stmt = conexao.prepareStatement(sql);
+            stmt.setDouble(1, emprestimo.getValor());
+            stmt.setDate(2, Date.valueOf(emprestimo.getData_inicio()));
+            stmt.setDate(3, Date.valueOf(emprestimo.getData_vencimento()));
+            stmt.setDouble(4, emprestimo.getTaxa_juros());
+            stmt.setInt(5, emprestimo.getCliente_id_cliente());
             stmt.executeUpdate();
-            stmt.close();
+            System.out.println("Cadastro realizado com sucesso!");
+
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Erro ao inserir o empréstimo", e);
         } finally {
-            closeConnection(conexao);
+            try {
+                stmt.close();
+                conexao.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Override
-    public Emprestimo getById(int id) {
-        conexao = ConnectionManager.getInstance().getConnection();
-        Emprestimo emprestimo = null;
-
-        String sql = "SELECT * FROM emprestimo WHERE ID_EMPRESTIMO = ?";
+    public void atualizar(Emprestimo emprestimo) throws DBException {
+        PreparedStatement stmt = null;
 
         try {
             conexao = ConnectionManager.getInstance().getConnection();
-            PreparedStatement stmt = conexao.prepareStatement(sql);
+            String sql = "UPDATE EMPRESTIMO SET" +
+                    "VALOR = ?," +
+                    "DATA_INICIO = ?," +
+                    "DATA_VENCIMENTO = ?," +
+                    "TAXA_JUROS = ?," +
+                    "CLIENTE_ID_CLIENTE = ?" +
+                    "WHERE ID_EMPRE = ?";
+
+            stmt = conexao.prepareStatement(sql);
+            stmt.setDouble(1, emprestimo.getValor());
+            stmt.setDate(2, Date.valueOf(emprestimo.getData_inicio()));
+            stmt.setDate(3, Date.valueOf(emprestimo.getData_vencimento()));
+            stmt.setDouble(4, emprestimo.getTaxa_juros());
+            stmt.setInt(5, emprestimo.getCliente_id_cliente());
+            stmt.setInt(6, emprestimo.getId_empre());
+            stmt.executeUpdate();
+            System.out.println("Atualizado com sucesso!");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+                conexao.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void remover(int id) throws DBException {
+        PreparedStatement stmt = null;
+
+        try {
+            conexao = ConnectionManager.getInstance().getConnection();
+            String sql = "DELETE FROM EMPRESTIMO WHERE ID_EMPRE = ?";
+            stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
+            stmt.executeUpdate();
+            System.out.println("Removido com sucesso!");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+                conexao.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public Emprestimo buscar(int id) {
+        Emprestimo emprestimo = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conexao = ConnectionManager.getInstance().getConnection();
+            String sql = "SELECT * FROM EMPRESTIMO WHERE ID_EMPRE = ?";
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
 
             if (rs.next()) {
-                emprestimo = new Emprestimo(
-                        rs.getInt("ID_EMPRESTIMO"),
-                        rs.getInt("ID_USER"),
-                        rs.getDouble("VALOR"),
-                        rs.getDate("DATA_INICIO").toLocalDate(),
-                        rs.getDate("DATA_VENCIMENTO").toLocalDate(),
-                        rs.getDouble("TAXA_JUROS")
-                );
+                int codigoRetornado = rs.getInt("ID_EMPRE");
+                double valor = rs.getDouble("VALOR");
+                LocalDate data_inicio = rs.getDate("DATA_INICIO").toLocalDate();
+                LocalDate data_vencimento = rs.getDate("DATA_VENCIMENTO").toLocalDate();
+                double taxa_juros = rs.getDouble("TAXA_JUROS");
+                int cliente_id_cliente = rs.getInt("CLIENTE_ID_CLIENTE");
+
+                emprestimo = new Emprestimo(codigoRetornado, valor, data_inicio, data_vencimento, taxa_juros, cliente_id_cliente);
             }
-            rs.close();
-            stmt.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Erro ao buscar o empréstimo por ID", e);
         } finally {
-            closeConnection(conexao);
+            try {
+                stmt.close();
+                rs.close();
+                conexao.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return emprestimo;
     }
 
     @Override
-    public List<Emprestimo> getAll() {
-        conexao = ConnectionManager.getInstance().getConnection();
+    public List<Emprestimo> listar() {
         List<Emprestimo> emprestimos = new ArrayList<>();
-
-        String sql = "SELECT * FROM emprestimo";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             conexao = ConnectionManager.getInstance().getConnection();
-            PreparedStatement stmt = conexao.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
+            String sql = "SELECT * FROM EMPRESTIMO";
+            stmt = conexao.prepareStatement(sql);
+            rs =stmt.executeQuery();
 
             while (rs.next()) {
-                Emprestimo emprestimo = new Emprestimo(
-                        rs.getInt("ID_EMPRESTIMO"),
-                        rs.getInt("ID_USER"),
-                        rs.getDouble("VALOR"),
-                        rs.getDate("DATA_INICIO").toLocalDate(),
-                        rs.getDate("DATA_VENCIMENTO").toLocalDate(),
-                        rs.getDouble("TAXA_JUROS")
-                );
+                int codigoRetornado = rs.getInt("ID_EMPRE");
+                double valor = rs.getDouble("VALOR");
+                LocalDate data_inicio = rs.getDate("DATA_INICIO").toLocalDate();
+                LocalDate data_vencimento = rs.getDate("DATA_VENCIMENTO").toLocalDate();
+                double taxa_juros = rs.getDouble("TAXA_JUROS");
+                int cliente_id_cliente = rs.getInt("CLIENTE_ID_CLIENTE");
+
+                Emprestimo emprestimo = new Emprestimo(codigoRetornado, valor, data_inicio, data_vencimento, taxa_juros, cliente_id_cliente);
                 emprestimos.add(emprestimo);
             }
-            rs.close();
-            stmt.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Erro ao listar os empréstimos", e);
         } finally {
-            closeConnection(conexao);
-        }
-        return emprestimos;
-    }
-
-    @Override
-    public void update(Emprestimo emprestimo) {
-        conexao = ConnectionManager.getInstance().getConnection();
-
-        String sql = "UPDATE emprestimo SET ID_USER = ?, VALOR = ?, DATA_INICIO = ?, DATA_VENCIMENTO = ?, TAXA_JUROS = ? WHERE ID_EMPRESTIMO = ?";
-
-        try {
-            conexao = ConnectionManager.getInstance().getConnection();
-            PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setInt(1, emprestimo.getId_user());
-            stmt.setDouble(2, emprestimo.getValor());
-            stmt.setDate(3, Date.valueOf(emprestimo.getData_inicio()));
-            stmt.setDate(4, Date.valueOf(emprestimo.getData_vencimento()));
-            stmt.setDouble(5, emprestimo.getTaxa_juros());
-            stmt.setInt(6, emprestimo.getId_emprestimo());
-            stmt.executeUpdate();
-            stmt.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Erro ao atualizar o empréstimo", e);
-        } finally {
-            closeConnection(conexao);
-        }
-    }
-
-    @Override
-    public void delete(int id) {
-        conexao = ConnectionManager.getInstance().getConnection();
-
-        String sql = "DELETE FROM emprestimo WHERE ID_EMPRESTIMO = ?";
-
-        try {
-            conexao = ConnectionManager.getInstance().getConnection();
-            PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setInt(1, id);
-            stmt.executeUpdate();
-            stmt.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Erro ao deletar o empréstimo", e);
-        } finally {
-            closeConnection(conexao);
-        }
-    }
-
-    private void closeConnection(Connection conexao) {
-        if (conexao != null) {
             try {
+                stmt.close();
+                rs.close();
                 conexao.close();
             } catch (SQLException e) {
                 e.printStackTrace();
-                throw new RuntimeException("Erro ao fechar a conexão com o banco de dados", e);
             }
         }
+        return emprestimos;
     }
 }
