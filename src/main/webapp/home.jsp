@@ -12,6 +12,14 @@
 </head>
 <body class="bg-dark-subtle">
 
+<style>
+.logo-img {
+width: 70px;
+max-width: 100%;
+height: auto;
+}
+</style>
+
 <%@include file="header.jsp" %>
 
 <%-- Container principal --%>
@@ -19,7 +27,7 @@
   <div class="header light-border-subtle">
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center">
-        <img src="https://via.placeholder.com/50" class="rounded-circle me-3" alt="Foto de Perfil">
+        <img src="resources/image/profile-icon.png" class="rounded-circle me-3 logo-img bg-dark-subtle" alt="Foto de Perfil">
         <h5 class="mb-0">Bom dia, <strong>Barbara Oliveira</strong></h5>
       </div>
       <div>
@@ -40,7 +48,7 @@
     <div class="card-body text-center">
       <h6 class="text-muted">Saldo atual</h6>
       <h3>R$ 1.234,56</h3>
-      <a href="#" class="text-decoration-none">Extrato></a>
+      <a href="extrato.jsp" class="text-decoration-none">Extrato></a>
     </div>
   </div>
 

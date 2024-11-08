@@ -19,7 +19,7 @@
 <nav class="navbar navbar-dark navbar-expand-lg navbar-custom">
     <div class="container-fluid">
         <img class="logo-img" src="./resources/image/logoEzy.jpg">
-        <a class="navbar-brand" href="index.jsp">EzyPay</a>
+        <a class="navbar-brand" href="login.jsp">EzyPay</a>
         <button class="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
@@ -35,20 +35,20 @@
                 <li class="nav-item">
                     <a class="nav-link"
                        aria-current="page"
-                       href="#">Início
+                       href="home.jsp">Início
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
-                       href="#">Extrato</a>
+                       href="extrato.jsp">Extrato</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
-                       href="#">Investimentos</a>
+                       href="investimentos.jsp">Investimentos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
-                       href="#">Empréstimo</a>
+                       href="emprestimo.jsp">Empréstimo</a>
                 </li>
             </ul>
         </div>

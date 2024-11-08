@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #f8f9fa;
+
             font-family: 'Roboto', sans-serif;
         }
         .extrato-header {
@@ -20,7 +20,7 @@
 
     </style>
 </head>
-<body>
+<body class="bg-dark-subtle">
 
 <%@ include file="header.jsp" %>
 
