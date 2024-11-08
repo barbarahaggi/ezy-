@@ -1,0 +1,13 @@
+.header {
+    background-color: #084550;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+}
+.saldo-card, .card-transacoes {
+    border-radius: 10px;
+}
+.icon {
+    font-size: 24px;
+}
