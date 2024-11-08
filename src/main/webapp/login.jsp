@@ -33,29 +33,46 @@
             <div class="card shadow-lg">
                 <div class="card-body p-5">
                     <h1 class="fs-4 card-title fw-bold mb-4">Login</h1>
-                    <form method="POST" action="home.jsp" class="needs-validation" novalidate="" autocomplete="off">
-                        <div class="mb-3">
-                            <label class="mb-2 text-muted" for="email">Email</label>
-                            <input id="email" type="email" class="form-control" name="email" required autofocus>
-                        </div>
 
-                        <div class="mb-3">
-                            <div class="mb-2 w-100">
-                                <label class="text-muted" for="password">Senha</label>
-                            </div>
-                            <input id="password" type="password" class="form-control" name="password" required>
-                        </div>
+                    <c:if test="${empty user}">
 
-                        <div class="d-flex align-items-center">
-                            <div class="form-check">
-                                <input type="checkbox" name="remember" id="remember" class="form-check-input">
-                                <label for="remember" class="form-check-label">Manter Conectado</label>
+                        <span class="navbar-text text-danger" style="margin-right: 10px">
+                            ${erro}
+                        </span>
+
+                        <form method="post" action="login" class="needs-validation" novalidate="" autocomplete="off">
+                            <div class="mb-3">
+                                <label class="mb-2 text-muted" for="email">Email</label>
+                                <input id="email" type="email" class="form-control" name="email" required autofocus>
                             </div>
-                            <button type="submit" class="btn btn-primary ms-auto">
-                                Login
-                            </button>
-                        </div>
-                    </form>
+
+                            <div class="mb-3">
+                                <div class="mb-2 w-100">
+                                    <label class="text-muted" for="password">Senha</label>
+                                </div>
+                                <input id="password" type="password" class="form-control" name="password" required>
+                            </div>
+
+                            <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                    <input type="checkbox" name="remember" id="remember" class="form-check-input">
+                                    <label for="remember" class="form-check-label">Manter Conectado</label>
+                                </div>
+                                <button type="submit" class="btn btn-primary ms-auto">
+                                    Login
+                                </button>
+                            </div>
+                        </form>
+                    </c:if>
+
+                    <c:if test="${not empty user}">
+                        <span class="navbar-text">
+                            ${user}
+                            <a href="login" class="btn btn-outline-primary my-2 my-sm-0">Sair</a>
+                        </span>
+                    </c:if>
+
+
                 </div>
                 <div class="card-footer py-3 border-0">
                     <div class="text-center">
