@@ -8,18 +8,19 @@
   <title>Ezypay - home</title>
   <link rel="stylesheet" href="./resources/css/bootstrap.css">
   <link rel="stylesheet" href="./resources/css/home.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-light">
+<body class="bg-dark-subtle">
 
 <%@include file="header.jsp" %>
 
 <%-- Container principal --%>
-<div class="container mt-5">
-  <div class="header">
+<div class="container mt-4">
+  <div class="header light-border-subtle">
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center">
         <img src="https://via.placeholder.com/50" class="rounded-circle me-3" alt="Foto de Perfil">
-        <h5 class="mb-0">Bom dia, <strong>Mônica Quintal</strong></h5>
+        <h5 class="mb-0">Bom dia, <strong>Barbara Oliveira</strong></h5>
       </div>
       <div>
         <i class="bi bi-bell icon"></i>
@@ -39,14 +40,14 @@
     <div class="card-body text-center">
       <h6 class="text-muted">Saldo atual</h6>
       <h3>R$ 1.234,56</h3>
-      <a href="#" class="text-decoration-none">Detalhes ></a>
+      <a href="#" class="text-decoration-none">Extrato></a>
     </div>
   </div>
 
   <%-- Cartões de receitas e despesas --%>
   <div class="row mb-3">
     <div class="col">
-      <div class="card text-center saldo-card bg-success text-white">
+      <div class="card text-center saldo-card bg-success-subtle text-success-emphasis">
         <div class="card-body">
           <h6>Receitas</h6>
           <h4>R$ 3.000,00</h4>
@@ -54,7 +55,7 @@
       </div>
     </div>
     <div class="col">
-      <div class="card text-center saldo-card bg-danger text-white">
+      <div class="card text-center saldo-card bg-danger-subtle text-danger-emphasis">
         <div class="card-body">
           <h6>Despesas</h6>
           <h4>R$ 1.765,44</h4>
@@ -64,8 +65,9 @@
   </div>
 
   <%-- Lista de transações --%>
-  <h5 class="mb-3">Últimas transações</h5>
-  <div class="list-group card-transacoes">
+
+  <div class="list-group card-transacoes light-border-subtle">
+    <h5 class="mb-3">Últimas transações</h5>
     <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
       <div>
         <i class="bi bi-cup-straw me-2"></i> Almoço

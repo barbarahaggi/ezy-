@@ -1,5 +1,6 @@
-.header {
-    background-color: #084550;
+body {
+    font-family: 'Roboto', sans-serif;
+}.header {background-color: #084550;
     color: white;
     padding: 20px;
     text-align: center;
@@ -11,3 +12,19 @@
 .icon {
     font-size: 24px;
 }
+
+.custom-bg {
+    background-color: #898a8d !important;
+}
+
+.saldo-card.bg-success {
+    background-color: #F0FFF0 !important;
+    color: #000 !important; /* Cor do texto opcional para contraste */
+}
+
+.saldo-card.bg-danger {
+    background-color: #FFE4E1 !important;
+    color: #000 !important; /* Cor do texto opcional para contraste */
+}
+
+
