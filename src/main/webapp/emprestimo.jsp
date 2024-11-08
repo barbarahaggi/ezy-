@@ -23,13 +23,11 @@
 <%@ include file="header.jsp" %>
 
 <div class="container mt-5">
-  <!-- Cabeçalho da página -->
   <div class="emprestimo-header text-center mb-4">
     <h3>Gestão de Empréstimos</h3>
     <p class="text-muted">Visualize e gerencie seus empréstimos</p>
   </div>
 
-  <!-- Tabela de Empréstimos Ativos -->
   <div class="table-responsive mb-4">
     <h4>Empréstimos Ativos</h4>
     <table class="table table-striped table-hover">
@@ -41,7 +39,6 @@
         <th scope="col">Data de Empréstimo</th>
         <th scope="col">Taxa de Juros</th>
         <th scope="col">Prazo (meses)</th>
-        <th scope="col" class="text-end">Status</th>
       </tr>
       </thead>
       <tbody>
@@ -52,7 +49,6 @@
         <td>05/11/2024</td>
         <td>2,5%</td>
         <td>24</td>
-        <td class="text-end"><span class="badge bg-success">Ativo</span></td>
       </tr>
       <tr>
         <td>2</td>
@@ -61,7 +57,6 @@
         <td>10/10/2024</td>
         <td>3,0%</td>
         <td>36</td>
-        <td class="text-end"><span class="badge bg-warning text-dark">Em andamento</span></td>
       </tr>
       </tbody>
     </table>
@@ -99,6 +94,8 @@
     </div>
   </div>
 </div>
+<br>
+<br>
 
 <script src="./resources/js/bootstrap.js"></script>
 </body>
