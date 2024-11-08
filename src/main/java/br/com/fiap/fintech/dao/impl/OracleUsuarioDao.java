@@ -20,7 +20,7 @@ public class OracleUsuarioDao implements UsuarioDao {
         try {
             conexao = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM USUARIO" +
+            String sql = "SELECT * FROM USUARIO " +
                     "WHERE EMAIL = ? AND SENHA = ?";
 
             stmt = conexao.prepareStatement(sql);
