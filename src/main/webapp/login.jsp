@@ -74,7 +74,12 @@
 
 
                 </div>
+                <div class="text-center">
+                    Ainda não possui uma conta?
+                    <a href="cadastro.jsp" class="text-success">Cadastre-se</a>
+                </div>
                 <div class="card-footer py-3 border-0">
+
                     <div class="text-center">
                         Tendo problemas para acessar?
                         <a href="#"
