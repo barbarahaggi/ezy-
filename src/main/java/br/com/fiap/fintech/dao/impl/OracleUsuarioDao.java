@@ -17,6 +17,7 @@ public class OracleUsuarioDao implements UsuarioDao {
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
+
         try {
             conexao = ConnectionManager.getInstance().getConnection();
 

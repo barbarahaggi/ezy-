@@ -22,6 +22,7 @@ height: auto;
 
 <%@include file="header.jsp" %>
 
+
 <%-- Container principal --%>
 <div class="container mt-4">
   <div class="header light-border-subtle">

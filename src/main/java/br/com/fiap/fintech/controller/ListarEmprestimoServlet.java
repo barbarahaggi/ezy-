@@ -33,7 +33,6 @@ public class ListarEmprestimoServlet extends HttpServlet {
         }
 
 
-
         List<Emprestimo> emprestimos = emprestimoDao.listar();
         request.setAttribute("emprestimos", emprestimos);
         request.getRequestDispatcher("emprestimo.jsp").forward(request, response);

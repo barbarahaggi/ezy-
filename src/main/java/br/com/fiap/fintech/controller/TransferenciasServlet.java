@@ -25,7 +25,6 @@ public class TransferenciasServlet extends HttpServlet {
         // Inicializa o DAO com uma instância de OracleTransferenciasDao
         transferenciaDao = new OracleTransferenciasDao();
     }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int page = 1;

@@ -60,7 +60,6 @@ public class RegistrarEmprestimoServlet extends HttpServlet implements Serializa
             request.setAttribute("erro", "Erro ao processar os dados: " + e.getMessage());
             response.sendRedirect(request.getContextPath() + "/listarEmprestimos");
 
-
         }
     }
 }

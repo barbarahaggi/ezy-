@@ -28,7 +28,6 @@ public class OracleEmprestimoDao implements EmprestimoDao {
             stmt.setDate(2, Date.valueOf(emprestimo.getData_inicio()));
             stmt.setDate(3, Date.valueOf(emprestimo.getData_vencimento()));
             stmt.setDouble(4, emprestimo.getTaxa_juros());
-            stmt.setInt(5, emprestimo.getCliente_id_cliente());
             stmt.executeUpdate();
             System.out.println("Cadastro realizado com sucesso!");
 
