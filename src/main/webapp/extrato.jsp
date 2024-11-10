@@ -26,7 +26,7 @@
 <%@ include file="header.jsp" %>
 
 <div class="container mt-5">
-    <!-- Cabeçalho da página -->
+    <!-- Cabeçalho da páginaa -->
     <div class="extrato-header text-center mb-4">
         <h3>Extrato de Transações</h3>
         <p class="text-muted">Visualize suas últimas movimentações</p>
