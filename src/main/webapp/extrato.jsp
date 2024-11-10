@@ -1,3 +1,5 @@
+<%@ page import="br.com.fiap.fintech.model.Transferencias" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -37,74 +39,25 @@
         <table class="table table-striped table-hover">
             <thead class="table-secondary">
             <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Valor (R$)</th>
                 <th scope="col">Data</th>
-                <th scope="col">Descrição</th>
-                <th scope="col">Categoria</th>
-                <th scope="col" class="text-end">Valor (R$)</th>
             </tr>
             </thead>
-            <tbody>
+            <%
+                List<Transferencias> transferencias = (List<Transferencias>) request.getAttribute("transferencias");
+                for (Transferencias transferencia : transferencias) {
+            %>
             <tr>
-                <td>10/11/2024</td>
-                <td>Almoço em restaurante</td>
-                <td>Alimentação</td>
-                <td class="text-end text-danger">- 45,00</td>
+                <td><%= transferencia.getIdTransf() %></td>
+                <td><%= transferencia.getTipo() %></td>
+                <td><%= transferencia.getValor() %></td>
+                <td><%= transferencia.getData() %></td>
             </tr>
-            <tr>
-                <td>09/11/2024</td>
-                <td>Salário mensal</td>
-                <td>Rendimentos</td>
-                <td class="text-end text-success">+ 3.000,00</td>
-            </tr>
-            <tr>
-                <td>08/11/2024</td>
-                <td>Compra de livros</td>
-                <td>Educação</td>
-                <td class="text-end text-danger">- 120,50</td>
-            </tr>
-            <tr>
-                <td>05/11/2024</td>
-                <td>Bilhete de transporte</td>
-                <td>Transporte</td>
-                <td class="text-end text-danger">- 80,00</td>
-            </tr>
-            <tr>
-                <td>02/11/2024</td>
-                <td>Reembolso</td>
-                <td>Outros</td>
-                <td class="text-end text-success">+ 150,00</td>
-            </tr>
-
-            <tr>
-                <td>12/11/2024</td>
-                <td>Supermercado</td>
-                <td>Compras</td>
-                <td class="text-end text-danger">- 250,75</td>
-            </tr>
-            <tr>
-                <td>11/11/2024</td>
-                <td>Pagamento de aluguel</td>
-                <td>Moradia</td>
-                <td class="text-end text-danger">- 1.200,00</td>
-            </tr>
-            <tr>
-                <td>11/11/2024</td>
-                <td>Venda de eletrônicos usados</td>
-                <td>Rendimentos</td>
-                <td class="text-end text-success">+ 500,00</td>
-            </tr>
-            <tr>
-                <td>07/11/2024</td>
-                <td>Assinatura de streaming</td>
-                <td>Entretenimento</td>
-                <td class="text-end text-danger">- 49,90</td>
-            </tr>
-            <tr>
-                <td>03/11/2024</td>
-                <td>Restituição de imposto</td>
-                <td>Rendimentos</td>
-                <td class="text-end text-success">+ 300,00</td>
-            </tr>
+            <%
+                }
+            %>
             </tbody>
         </table>
     </div>

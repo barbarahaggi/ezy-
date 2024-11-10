@@ -39,7 +39,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
-                       href="extrato.jsp">Extrato</a>
+                       href="transferencias">Extrato</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="listarEmprestimos">Empréstimo</a>
