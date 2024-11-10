@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -22,6 +23,9 @@
 
 <%@ include file="header.jsp" %>
 
+
+
+
 <div class="container mt-5">
   <div class="emprestimo-header text-center mb-4">
     <h3>Gestão de Empréstimos</h3>
@@ -36,33 +40,26 @@
         <th scope="col">ID</th>
         <th scope="col">Valor</th>
         <th scope="col">Data de Empréstimo</th>
+        <th scope="col">Data de Vencimento</th>
         <th scope="col">Taxa de Juros</th>
-        <th scope="col">Prazo (meses)</th>
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td>1</td>
-        <td>R$ 10.000,00</td>
-        <td>05/11/2024</td>
-        <td>2,5%</td>
-        <td>24</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>R$ 25.000,00</td>
-        <td>10/10/2024</td>
-        <td>3,0%</td>
-        <td>36</td>
-      </tr>
+      <c:forEach var="emprestimo" items="${emprestimos}">
+        <tr>
+          <td>${emprestimo.id_empre}</td>
+          <td>R$ ${emprestimo.valor}</td>
+          <td>${emprestimo.data_inicio}</td>
+          <td>${emprestimo.data_vencimento}</td>
+          <td>${emprestimo.taxa_juros}%</td>
+        </tr>
+      </c:forEach>
       </tbody>
     </table>
   </div>
 
-  <!-- Formulário para Registrar Novo Empréstimo -->
   <div class="card">
     <div class="card-header">
-
       <h4>Registrar Novo Empréstimo</h4>
     </div>
     <c:if test="${not empty mensagem}">
@@ -95,8 +92,6 @@
     </div>
   </div>
 </div>
-<br>
-<br>
 
 <script src="./resources/js/bootstrap.js"></script>
 </body>

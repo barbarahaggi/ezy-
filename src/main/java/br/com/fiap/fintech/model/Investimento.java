@@ -6,7 +6,7 @@ public class Investimento {
     private double valor;
     private int cliente_id_cliente;
 
-    public Investimento() {}
+    public Investimento(int codigoRetornado, double cdi, double valor) {}
 
     public Investimento(int id_invest, double cdi, double valor, int cliente_id_cliente) {
         this.id_invest = id_invest;

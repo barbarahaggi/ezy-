@@ -16,15 +16,14 @@ public class OracleInvestimentoDao implements InvestimentoDao {
     public void cadastrar(Investimento investimento) throws DBException {
         PreparedStatement stmt = null;
 
-        String sql = "INSERT INTO INVESTIMENTO (ID_INVEST, CDI, VALOR, CLIENTE_ID_CLIENTE)" +
-                "VALUES (sequencia, ?, ?, ?)";
+        String sql = "INSERT INTO INVESTIMENTO (ID_INVEST, CDI, VALOR)" +
+                "VALUES (sequencia, ?, ?)";
 
         try {
             conexao = ConnectionManager.getInstance().getConnection();
             stmt = conexao.prepareStatement(sql);
             stmt.setDouble(1, investimento.getCdi());
             stmt.setDouble(2, investimento.getValor());
-            stmt.setInt(3, investimento.getCliente_id_cliente());
             stmt.executeUpdate();
             System.out.println("Cadastrado com sucesso!");
 
@@ -50,7 +49,6 @@ public class OracleInvestimentoDao implements InvestimentoDao {
             String sql = "UPDATE INVESTIMENTO SET" +
                     "CDI = ?," +
                     "VALOR = ?," +
-                    "CLIENTE_ID_CLIENTE = ?" +
                     "WHERE ID_INVEST = ?";
 
             stmt = conexao.prepareStatement(sql);
@@ -114,9 +112,8 @@ public class OracleInvestimentoDao implements InvestimentoDao {
                 int codigoRetornado = rs.getInt("ID_INVEST");
                 double cdi = rs.getDouble("CDI");
                 double valor = rs.getDouble("VALOR");
-                int cliente_id_cliente = rs.getInt("CLIENTE_ID_CLIENTE");
 
-                investimento = new Investimento(codigoRetornado, cdi, valor, cliente_id_cliente);
+                investimento = new Investimento(codigoRetornado, cdi, valor);
             }
         } catch (Exception e) {
             e.printStackTrace();
