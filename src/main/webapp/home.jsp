@@ -37,19 +37,13 @@ height: auto;
     </div>
   </div>
 
-  <%-- Menu de navegação --%>
-  <nav class="nav justify-content-center bg-white py-2 mb-3">
-    <a class="nav-link" href="#">Março</a>
-    <a class="nav-link active" href="#">Abril</a>
-    <a class="nav-link" href="#">Maio</a>
-  </nav>
 
   <%-- Cartão de saldo atual --%>
   <div class="card mb-3 saldo-card">
     <div class="card-body text-center">
       <h6 class="text-muted">Saldo atual</h6>
       <h3>R$ 1.234,56</h3>
-      <a href="extrato.jsp" class="text-decoration-none">Extrato></a>
+      <a href="transferencias" class="text-decoration-none">Extrato></a>
     </div>
   </div>
 
