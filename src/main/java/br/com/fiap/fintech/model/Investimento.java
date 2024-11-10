@@ -1,6 +1,7 @@
 package br.com.fiap.fintech.model;
 
 import java.time.LocalDate;
+import java.sql.Date;
 
 public class Investimento {
     private int idInvest;
@@ -35,8 +36,8 @@ public class Investimento {
         this.valor = valor;
     }
 
-    public LocalDate getDataInicio() {
-        return dataInicio;
+    public Date getDataInicio() {
+        return Date.valueOf(dataInicio);
     }
 
     public void setDataInicio(LocalDate dataInicio) {
@@ -51,8 +52,8 @@ public class Investimento {
         this.nomeInvestimento = nomeInvestimento;
     }
 
-    public LocalDate getDataFim() {
-        return dataFim;
+    public Date getDataFim() {
+        return Date.valueOf(dataFim);
     }
 
     public void setDataFim(LocalDate dataFim) {

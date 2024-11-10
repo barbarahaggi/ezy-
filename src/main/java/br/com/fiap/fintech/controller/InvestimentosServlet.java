@@ -28,15 +28,23 @@ public class InvestimentosServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Busca todos os investimentos usando o DAO
-        List<Investimento> investimentos = investimentoDao.listar();
+        // Exceção tratada ao tentar buscar investimentos
+        try {
+            // Busca todos os investimentos usando o DAO
+            List<Investimento> investimentos = investimentoDao.listar();
 
-        // Define o atributo para o JSP
-        request.setAttribute("investimentos", investimentos);
+            // Define o atributo para o JSP
+            request.setAttribute("investimentos", investimentos);
 
-        // Encaminha para o JSP que exibirá os dados
-        RequestDispatcher dispatcher = request.getRequestDispatcher("investimentos.jsp");
-        dispatcher.forward(request, response);
-
+            // Encaminha para o JSP que exibirá os dados
+            RequestDispatcher dispatcher = request.getRequestDispatcher("investimentos.jsp");
+            dispatcher.forward(request, response);
+        } catch (DBException e) {
+            // Em caso de erro no banco de dados, loga e encaminha para uma página de erro
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Erro ao listar investimentos.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 }

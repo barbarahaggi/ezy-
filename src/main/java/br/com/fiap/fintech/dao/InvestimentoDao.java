@@ -8,8 +8,8 @@ public interface InvestimentoDao {
     void cadastrar(Investimento investimento) throws DBException;
     void atualizar(Investimento investimento) throws DBException;
     void remover(int id) throws DBException;
-    Investimento buscar(int id);
-    List<Investimento> listar();
+    Investimento buscar(int id) throws DBException;
+    List<Investimento> listar() throws DBException;
 
-    List<Investimento> getUltimosInvestimentos(int i);
+    List<Investimento> getUltimosInvestimentos(int limit);
 }
