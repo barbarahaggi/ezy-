@@ -47,17 +47,20 @@ public class RegistrarEmprestimoServlet extends HttpServlet implements Serializa
 
                 pstmt.executeUpdate();
 
-                request.setAttribute("mensagem", "Empréstimo Registrado com Sucesso!");
-                request.getRequestDispatcher("emprestimo.jsp").forward(request, response);
+                request.getSession().setAttribute("mensagem", "Empréstimo Registrado com Sucesso!");
+                response.sendRedirect(request.getContextPath() + "/listarEmprestimos");
             } catch (Exception e) {
                 e.printStackTrace();
                 request.setAttribute("erro", "Erro ao registrar o empréstimo! Por favor, valide os dados.");
-                request.getRequestDispatcher("emprestimo.jsp").forward(request, response);
+                response.sendRedirect(request.getContextPath() + "/listarEmprestimos");
+
             }
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("erro", "Erro ao processar os dados: " + e.getMessage());
-            request.getRequestDispatcher("emprestimo.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/listarEmprestimos");
+
+
         }
     }
 }

@@ -42,12 +42,7 @@
                        href="extrato.jsp">Extrato</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"
-                       href="investimentos.jsp">Investimentos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link"
-                       href="emprestimo.jsp">Empréstimo</a>
+                    <a class="nav-link" href="listarEmprestimos">Empréstimo</a>
                 </li>
             </ul>
         </div>
