@@ -34,7 +34,7 @@ public class RegistrarEmprestimoServlet extends HttpServlet implements Serializa
             String dataVencimentoStr = request.getParameter("dataVencimento");
             Date dataVencimento = Date.valueOf(dataVencimentoStr);
 
-            String sql = "INSERT INTO emprestimo (valor, data_inicio, taxa_juros, data_vencimento) " +
+            String sql = "INSERT INTO emprestimo (ID_EMPRE, valor, data_inicio, taxa_juros, data_vencimento) " +
                     "VALUES (EMP_SEQ.NEXTVAL, ?, ?, ?, ?)";
 
             try (Connection connection = ConnectionManager.getInstance().getConnection();

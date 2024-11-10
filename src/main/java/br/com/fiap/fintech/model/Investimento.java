@@ -9,7 +9,7 @@ public class Investimento {
     private String nomeInvestimento;
     private LocalDate dataFim;
 
-    public Investimento() {}
+    public Investimento(int codigoRetornado, double cdi, double valor) {}
 
     public Investimento(int idInvest, double valor, LocalDate dataInicio, String nomeInvestimento, LocalDate dataFim) {
         this.idInvest = idInvest;
