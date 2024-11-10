@@ -63,15 +63,6 @@
                                 </button>
                             </div>
                         </form>
-                    </c:if>
-
-                    <c:if test="${not empty user}">
-                        <span class="navbar-text">
-                            ${user}
-                            <a href="login" class="btn btn-outline-primary my-2 my-sm-0">Sair</a>
-                        </span>
-                    </c:if>
-
 
                 </div>
                 <div class="card-footer py-3 border-0">

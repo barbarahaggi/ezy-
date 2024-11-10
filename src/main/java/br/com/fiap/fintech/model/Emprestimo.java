@@ -10,7 +10,7 @@ public class Emprestimo {
     private double taxa_juros;
     private int cliente_id_cliente;
 
-    public Emprestimo(int id_empre, double valor, LocalDate data_inicio, LocalDate data_vencimento, double taxa_juros, int cliente_id_cliente) {
+    public Emprestimo(int id_empre, double valor, LocalDate data_inicio, LocalDate data_vencimento, double taxa_juros) {
         this.id_empre = id_empre;
         this.valor = valor;
         this.data_inicio = data_inicio;
