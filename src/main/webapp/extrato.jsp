@@ -40,7 +40,6 @@
             <thead class="table-secondary">
             <tr>
                 <th scope="col">Data</th>
-                <th scope="col">Descrição</th>
                 <th scope="col">Categoria</th>
                 <th scope="col" class="text-end">Valor (R$)</th>
             </tr>
@@ -50,8 +49,8 @@
                 for (Transferencias transferencia : transferencias) {
             %>
             <tr>
-                <td><%= transferencia.getIdTransf() %></td>
                 <td><%= transferencia.getData() %></td>
+                <td><%= transferencia.getTipo() %></td>
                 <td><%= transferencia.getValor() %></td>
             </tr>
             <%
