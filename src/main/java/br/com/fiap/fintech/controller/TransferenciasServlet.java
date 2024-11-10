@@ -47,7 +47,7 @@ public class TransferenciasServlet extends HttpServlet {
         request.setAttribute("totalPages", totalPages);
 
         // Encaminha para o JSP que exibirá os registros
-        RequestDispatcher dispatcher = request.getRequestDispatcher("transferencias.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("extrato.jsp");
         dispatcher.forward(request, response);
     }
 }
