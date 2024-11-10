@@ -17,8 +17,8 @@ public class OracleEmprestimoDao implements EmprestimoDao {
     public void cadastrar(Emprestimo emprestimo) throws DBException {
         PreparedStatement stmt = null;
 
-        String sql = "INSERT INTO EMPRESTIMO (ID_EMPRE, VALOR, DATA_INICIO, DATA_VENCIMENTO, TAXA_JUROS, CLIENTE_ID_CLIENTE) " +
-                "VALUES (sequencia.NEXTVAL, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO EMPRESTIMO (ID_EMPRE, VALOR, DATA_INICIO, DATA_VENCIMENTO, TAXA_JUROS) " +
+                "VALUES (sequencia.NEXTVAL, ?, ?, ?, ?)";
 
 
         try {
@@ -28,7 +28,6 @@ public class OracleEmprestimoDao implements EmprestimoDao {
             stmt.setDate(2, Date.valueOf(emprestimo.getData_inicio()));
             stmt.setDate(3, Date.valueOf(emprestimo.getData_vencimento()));
             stmt.setDouble(4, emprestimo.getTaxa_juros());
-            stmt.setInt(5, emprestimo.getCliente_id_cliente());
             stmt.executeUpdate();
             System.out.println("Cadastro realizado com sucesso!");
 
@@ -54,8 +53,7 @@ public class OracleEmprestimoDao implements EmprestimoDao {
                     "VALOR = ?, " +
                     "DATA_INICIO = ?, " +
                     "DATA_VENCIMENTO = ?, " +
-                    "TAXA_JUROS = ?, " +
-                    "CLIENTE_ID_CLIENTE = ? " +
+                    "TAXA_JUROS = ? " +
                     "WHERE ID_EMPRE = ?";
 
             stmt = conexao.prepareStatement(sql);
@@ -63,8 +61,7 @@ public class OracleEmprestimoDao implements EmprestimoDao {
             stmt.setDate(2, Date.valueOf(emprestimo.getData_inicio()));
             stmt.setDate(3, Date.valueOf(emprestimo.getData_vencimento()));
             stmt.setDouble(4, emprestimo.getTaxa_juros());
-            stmt.setInt(5, emprestimo.getCliente_id_cliente());
-            stmt.setInt(6, emprestimo.getId_empre());
+            stmt.setInt(5, emprestimo.getId_empre());
             stmt.executeUpdate();
             System.out.println("Atualizado com sucesso!");
 
@@ -123,9 +120,8 @@ public class OracleEmprestimoDao implements EmprestimoDao {
                 LocalDate data_inicio = rs.getDate("DATA_INICIO").toLocalDate();
                 LocalDate data_vencimento = rs.getDate("DATA_VENCIMENTO").toLocalDate();
                 double taxa_juros = rs.getDouble("TAXA_JUROS");
-                int cliente_id_cliente = rs.getInt("CLIENTE_ID_CLIENTE");
 
-                emprestimo = new Emprestimo(codigoRetornado, valor, data_inicio, data_vencimento, taxa_juros, cliente_id_cliente);
+                emprestimo = new Emprestimo(codigoRetornado, valor, data_inicio, data_vencimento, taxa_juros);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -159,9 +155,8 @@ public class OracleEmprestimoDao implements EmprestimoDao {
                 LocalDate data_inicio = rs.getDate("DATA_INICIO").toLocalDate();
                 LocalDate data_vencimento = rs.getDate("DATA_VENCIMENTO").toLocalDate();
                 double taxa_juros = rs.getDouble("TAXA_JUROS");
-                int cliente_id_cliente = rs.getInt("CLIENTE_ID_CLIENTE");
 
-                Emprestimo emprestimo = new Emprestimo(codigoRetornado, valor, data_inicio, data_vencimento, taxa_juros, cliente_id_cliente);
+                Emprestimo emprestimo = new Emprestimo(codigoRetornado, valor, data_inicio, data_vencimento, taxa_juros);
                 emprestimos.add(emprestimo);
             }
 

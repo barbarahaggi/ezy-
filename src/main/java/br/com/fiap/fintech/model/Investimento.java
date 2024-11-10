@@ -1,34 +1,30 @@
 package br.com.fiap.fintech.model;
 
+import java.time.LocalDate;
+
 public class Investimento {
-    private int id_invest;
-    private double cdi;
+    private int idInvest;
     private double valor;
-    private int cliente_id_cliente;
+    private LocalDate dataInicio;
+    private String nomeInvestimento;
+    private LocalDate dataFim;
 
     public Investimento() {}
 
-    public Investimento(int id_invest, double cdi, double valor, int cliente_id_cliente) {
-        this.id_invest = id_invest;
-        this.cdi = cdi;
+    public Investimento(int idInvest, double valor, LocalDate dataInicio, String nomeInvestimento, LocalDate dataFim) {
+        this.idInvest = idInvest;
         this.valor = valor;
-        this.cliente_id_cliente = cliente_id_cliente;
+        this.dataInicio = dataInicio;
+        this.nomeInvestimento = nomeInvestimento;
+        this.dataFim = dataFim;
     }
 
-    public int getId_invest() {
-        return id_invest;
+    public int getIdInvest() {
+        return idInvest;
     }
 
-    public void setId_invest(int id_invest) {
-        this.id_invest = id_invest;
-    }
-
-    public double getCdi() {
-        return cdi;
-    }
-
-    public void setCdi(double cdi) {
-        this.cdi = cdi;
+    public void setIdInvest(int idInvest) {
+        this.idInvest = idInvest;
     }
 
     public double getValor() {
@@ -39,11 +35,27 @@ public class Investimento {
         this.valor = valor;
     }
 
-    public int getCliente_id_cliente() {
-        return cliente_id_cliente;
+    public LocalDate getDataInicio() {
+        return dataInicio;
     }
 
-    public void setCliente_id_cliente(int cliente_id_cliente) {
-        this.cliente_id_cliente = cliente_id_cliente;
+    public void setDataInicio(LocalDate dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public String getNomeInvestimento() {
+        return nomeInvestimento;
+    }
+
+    public void setNomeInvestimento(String nomeInvestimento) {
+        this.nomeInvestimento = nomeInvestimento;
+    }
+
+    public LocalDate getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(LocalDate dataFim) {
+        this.dataFim = dataFim;
     }
 }

@@ -10,4 +10,7 @@ public interface TransferenciasDao {
     void remover(int id) throws DBException;
     Transferencias buscar(int id);
     List<Transferencias> listar();
+
+    List<Transferencias> getUltimasTransferencias(int limit);
+    List<Transferencias> getTransferenciasPaginated(int start, int recordsPerPage);
 }

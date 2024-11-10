@@ -10,4 +10,6 @@ public interface InvestimentoDao {
     void remover(int id) throws DBException;
     Investimento buscar(int id);
     List<Investimento> listar();
+
+    List<Investimento> getUltimosInvestimentos(int i);
 }

@@ -1,49 +1,60 @@
 package br.com.fiap.fintech.model;
 
+import java.sql.Date;
+
 public class Transferencias {
-    int id_transfe;
-    double receitas;
-    double despesas;
-    int cliente_id_cliente;
+    private int IdTransf;
+    private double valor;
+    private java.sql.Date data;  // Alterado para java.sql.Date
+    private String tipo;
 
-    public Transferencias(int id_transfe, double receitas, double despesas, int cliente_id_cliente) {
-        this.id_transfe = id_transfe;
-        this.receitas = receitas;
-        this.despesas = despesas;
-        this.cliente_id_cliente = cliente_id_cliente;
+    public Transferencias(int IdTransf, double valor, Date data, String tipo) {
+        this.IdTransf = IdTransf;
+        this.valor = valor;
+        this.data = data;
+        this.tipo = tipo;
     }
 
-    public int getId_transfe() {
-        return id_transfe;
+    // Getters e setters
+    public int getIdTransf() {
+        return IdTransf;
     }
 
-    public void setId_transfe(int id_transfe) {
-        this.id_transfe = id_transfe;
+    public void setIdTransf(int IdTransf) {
+        this.IdTransf = IdTransf;
     }
 
-    public double getReceitas() {
-        return receitas;
+    public Double getValor() {
+        return valor;
     }
 
-    public void setReceitas(double receitas) {
-        this.receitas = receitas;
+    public void setValor(double valor) {
+        this.valor = valor;
     }
 
-    public double getDespesas() {
-        return despesas;
+    public java.sql.Date getData() {
+        return data;
     }
 
-    public void setDespesas(double despesas) {
-        this.despesas = despesas;
+    public void setData(java.sql.Date data) {
+        this.data = data;
     }
 
-    public int getCliente_id_cliente() {
-        return cliente_id_cliente;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setCliente_id_cliente(int cliente_id_cliente) {
-        this.cliente_id_cliente = cliente_id_cliente;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    @Override
+    public String toString() {
+        return "Transferencia{" +
+                "IdTransf=" + IdTransf +
+                ", valor=" + valor +
+                ", data=" + data +
+                ", tipo='" + tipo + '\'' +
+                '}';
     }
 }
-
-
