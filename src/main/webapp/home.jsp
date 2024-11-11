@@ -21,11 +21,11 @@
 <body class="bg-dark-subtle">
 
 <style>
-.logo-img {
-width: 70px;
-max-width: 100%;
-height: auto;
-}
+  .logo-img {
+    width: 70px;
+    max-width: 100%;
+    height: auto;
+  }
 </style>
 
 <%@include file="header.jsp" %>
