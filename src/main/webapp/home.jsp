@@ -104,7 +104,7 @@ height: auto;
         <td colspan="3">Nenhuma transferência encontrada.</td>
       </tr>
       <%
-        }  // Fim do if
+        }  // Fim do iif
       %>
       </tbody>
   </div>
