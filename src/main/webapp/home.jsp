@@ -68,7 +68,7 @@ height: auto;
     <div class="col">
       <div class="card text-center saldo-card bg-danger-subtle text-danger-emphasis">
         <div class="card-body">
-          <h6>Despesas</h6>
+          <h6>Despesaas</h6>
           <h4>R$ 1.765,44</h4>
         </div>
       </div>
