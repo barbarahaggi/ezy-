@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/home")
+@WebServlet("/DashboardServlet")
 public class DashboardServlet extends HttpServlet {
 
     private TransferenciasDao transferenciaDao;
